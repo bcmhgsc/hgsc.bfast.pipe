@@ -93,6 +93,9 @@ else
   s_deps << moab.add_job("stats_R3", cmds.stats_r3, "", re_stats, [dup_dep])
 end
 
+# Run Bam Stats
+s_deps << moab.add_job("bam_stats", cmds.bam_stats, "", re_stats, [dup_dep])
+
 # Run BAM Reads Validation
 s_deps << moab.add_job("bam_reads_val", cmds.bam_reads_validator, "", re_stats, [dup_dep])
 
@@ -114,7 +117,7 @@ moab.add_job_to_file("clean2fin", "#{File.dirname(File.dirname($0))}" +
             "/helpers/create_time.sh END time_stamps.txt", "")
 
 # updating LIMS
-moab.add_job_to_file("clean2fin", "ruby #{File.dirname(File.dirname($0))}" +
+moab.add_job_to_file("clean2fin", "/stornext/snfs5/next-gen/software/bin/ruby19 #{File.dirname(File.dirname($0))}" +
             "/helpers/update_lims_sea_stat.rb all", "")
 
 moab.add_job_from_file("clean2fin", "", re_stats, s_deps)

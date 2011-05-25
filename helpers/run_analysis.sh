@@ -103,7 +103,6 @@ name_split="$run_name.genfastq.$rnds"
 name_cjobs="$run_name.create_jobs.$rnds" 
 name_cmd="$run_name.submit_jobs.$rnds"
 name_start="$run_name.start_time.$rnds"
-name_lims_start="$run_name.update_lims_start_time.$rnds"
 
 # Set the SEA in the DB as analysis started
 #to_lsf $name_flag_db \
@@ -114,7 +113,6 @@ name_lims_start="$run_name.update_lims_start_time.$rnds"
 #to_lsf $name_cmd "./cluster_JOBS.sh $config_file" $name_cjobs
 
 to_moab $name_start "$prod_pipe/helpers/create_time.sh START $time_stamp"
-to_moab $name_lims_start "$prod_pipe/helpers/update_lims_sea_stat.rb start" $name_start
 to_moab $name_split "$prod_pipe/bin/bfast.split.reads.rb $config_file"
 to_moab $name_cjobs "$prod_pipe/bin/bfast.moab.submit.rb $config_file" $name_split
 to_moab $name_cmd "./cluster_JOBS.sh $config_file" $name_cjobs

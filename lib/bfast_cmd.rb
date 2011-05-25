@@ -159,12 +159,20 @@ class BfastCmd
     stats_core + " 2 solid > marked.stats.R3.txt"
   end
 
+  # computes bam stats TODO
+  def bam_stats
+    "#{@config.global_java_vm} " +
+    "-jar -Xmx6000M /stornext/snfs5/next-gen/Illumina/ipipe/java/BAMAnalyzer.jar " +
+    "I=#{bam_file_sorted_dups} " +
+    " > bam.stats.txt"
+  end
+
   def capture_stats
     "#{@config.global_java_vm} -cp #{@config.capture_j_classpath} " +
     "-Xmx6000M CaptureStatsBAM5 " +
     "-o #{@config.capture_stats_dir}/#{root_name} -t " +
     "#{@config.capture_chip_design} " +
-    "-i #{bam_file_sorted_dups} -w -d"
+    "-i #{bam_file_sorted_dups} -d"
   end
 
   def bam_reads_validator
